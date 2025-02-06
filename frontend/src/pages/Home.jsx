@@ -1,32 +1,25 @@
-import { Link } from "react-router-dom";
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { useGLTF, Stage, OrbitControls } from '@react-three/drei';
 import styles from "@css/home.module.css";
-import { useEffect, useState } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { useGLTF, Stage } from '@react-three/drei';
 import * as THREE from 'three';
-
-let mouseX = 0;
-let mouseY = 0;
+import { Bloom, DepthOfField, EffectComposer, Noise, Vignette } from '@react-three/postprocessing'
+import { useRef, useState } from 'react';
 
 function Commodore(props) {
     const { scene, animations } = useGLTF(`commodore_scsc.glb`);
 
     let mixer;
-    // Commodore default animation if exists
     if (animations.length) {
         mixer = new THREE.AnimationMixer(scene);
-        animations.forEach(clip => {
-            const action = mixer.clipAction(clip)
-            action.play();
-        });
+        animations.forEach(clip => mixer.clipAction(clip).play());
     }
 
+    // const { isRotating } = useThree();
+
     useFrame((state, delta) => {
-        mixer?.update(delta);
-        // Commodore smoothly rotates towards cursor position
-        if (scene) {
-            scene.rotation.y += (mouseX / window.innerWidth * 1.5 / Math.PI - scene.rotation.y) * 0.02;
-            scene.rotation.x += (mouseY / window.innerHeight + .25 * 1.5 / Math.PI  - scene.rotation.x) * 0.02;
+        if (scene) { 
+            scene.rotation.y += 0.0015;
+            mixer?.update(delta);
         }
     });
 
@@ -34,17 +27,7 @@ function Commodore(props) {
 }
 
 const Home = () => {
-    // for 3d model animations based on cursor position
-    const handleMouseMove = (event) => {
-        mouseX = event.clientX - window.innerWidth / 2;
-        mouseY = event.clientY - window.innerHeight / 2;
-    };
-    useEffect(() => {
-        document.addEventListener('mousemove', handleMouseMove);
-        return () => {
-            document.removeEventListener('mousemove', handleMouseMove);
-        };
-    }, []);
+    // const [isRotating, setIsRotating] = useState(true);
 
     return (
         <>
@@ -56,6 +39,18 @@ const Home = () => {
                             <directionalLight position={[5, 5, 5]} intensity={1} />
                             <directionalLight position={[-5, 5, 5]} intensity={0.5} />
                             <Commodore />
+                            <OrbitControls
+                                makeDefault
+                                onPointerDown={() => setIsRotating(false)} 
+                                onPointerUp={() => setIsRotating(true)}
+                                onPointerLeave={() => setIsRotating(true)}
+                            />
+                            <EffectComposer>
+                                <DepthOfField focusDistance={0} focalLength={1} bokehScale={2} height={480} />
+                                <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={300} />
+                                <Noise opacity={0.1} />
+                                <Vignette eskil={false} offset={0.1} darkness={1.1} />
+                            </EffectComposer>
                         </Stage>
                     </Canvas>
                 </div>
