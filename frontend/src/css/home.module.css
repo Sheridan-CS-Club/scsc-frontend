@@ -26,10 +26,7 @@
     margin: 0;
     color: var(--light);
     text-align: center;
-    font-family: Geist;
     font-size: 6.25rem;
-    font-style: normal;
     font-weight: 500;
-    line-height: normal;
     letter-spacing: -0.25rem;
 }
