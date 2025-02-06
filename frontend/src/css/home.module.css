@@ -16,17 +16,10 @@
     box-sizing: border-box;
     height: 100%;
     width: 100%;
-    padding: var(--block_padding) var(--inline_padding);
-    background-color: var(--bg);
     border-radius: 0.9375rem;
 }
 
-
-#hero_container h1 {
-    margin: 0;
-    color: var(--light);
-    text-align: center;
-    font-size: 6.25rem;
-    font-weight: 500;
-    letter-spacing: -0.25rem;
+#hero_canvas {
+    border-radius: 0.9375rem;
+    background: radial-gradient(60.78% 60.78% at 50% 50%, #465072 0%, #292E3A 100%);
 }

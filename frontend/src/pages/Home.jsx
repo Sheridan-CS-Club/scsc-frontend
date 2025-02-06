@@ -9,7 +9,7 @@ let mouseX = 0;
 let mouseY = 0;
 
 function Commodore(props) {
-    const { scene, animations } = useGLTF(`commodore_low.glb`);
+    const { scene, animations } = useGLTF(`commodore_scsc.glb`);
 
     let mixer;
     // Commodore default animation if exists
@@ -50,9 +50,11 @@ const Home = () => {
         <>
             <section id={styles.hero_section}>
                 <div id={styles.hero_container}>
-                    <h1>Sheridan CS Club</h1>
-                    <Canvas camera={{ fov: 20 }}>
-                        <Stage shadows={null} environment="apartment" intensity={0}>
+                    <Canvas camera={{ fov: 10 }} id={styles.hero_canvas}>
+                        <Stage shadows={null} environment="" intensity={0.01}>
+                            <ambientLight intensity={1} />
+                            <directionalLight position={[5, 5, 5]} intensity={1} />
+                            <directionalLight position={[-5, 5, 5]} intensity={0.5} />
                             <Commodore />
                         </Stage>
                     </Canvas>
