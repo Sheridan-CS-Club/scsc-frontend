@@ -6,7 +6,7 @@ import { Bloom, DepthOfField, EffectComposer, Noise, Vignette } from '@react-thr
 import { useRef, useState } from 'react';
 
 function Commodore(props) {
-    const { scene, animations } = useGLTF(`commodore_scsc.glb`);
+    const { scene, animations } = useGLTF(`commodore_scsc_center.glb`);
 
     let mixer;
     if (animations.length) {
@@ -18,7 +18,7 @@ function Commodore(props) {
 
     useFrame((state, delta) => {
         if (scene) { 
-            scene.rotation.y += 0.0015;
+            scene.rotation.y += 0.001;
             mixer?.update(delta);
         }
     });
