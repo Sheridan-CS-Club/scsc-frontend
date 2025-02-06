@@ -1,0 +1,74 @@
+@font-face {
+  font-family: "Geist";
+  src: url("assets/fonts/Geist.ttf") format("truetype");
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  -webkit-font-smoothing: antialiased !important;
+  background-color: var(--dark);
+  /* overflow-x: hidden; */
+}
+
+* {
+  font-family: "Geist", sans-serif;
+  box-sizing: border-box;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--primary);
+  transition: outline 0.05s!important;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.toast div {
+  font-style: normal;
+  font-size: 1rem;
+}
+
+:root {
+  --primary: #52ddb8;
+  --primary_50: rgb(82, 221, 184, .5);
+  --primary_25: rgb(82, 221, 184, .25);
+  --secondary: #9083c2;
+  --accent: #D1FA94;
+  --bg: #c4d5fb;
+  --gray: #7d7d7d;
+  --dark: #1a1a1a;
+  --dark_80: rgba(26, 26, 26, 0.8);
+  --dark_75: rgba(26, 26, 26, 0.75);
+  --dark_60: rgba(26, 26, 26, 0.6);
+  --dark_50: rgba(26, 26, 26, 0.5);
+  --dark_35: rgba(26, 26, 26, 0.35);
+  --dark_25: rgba(26, 26, 26, 0.25);
+  --dark_15: rgba(26, 26, 26, 0.15);
+  --dark_10: rgba(26, 26, 26, 0.1);
+  --dark_5: rgba(26, 26, 26, 0.05);
+  --light: #f5f5f5;
+  --light_80: rgba(245, 245, 245, 0.8);
+  --light_75: rgba(245, 245, 245, 0.75);
+  --light_50: rgba(245, 245, 245, 0.5);
+  --light_35: rgba(245, 245, 245, 0.35);
+  --light_25: rgba(245, 245, 245, 0.25);
+  --light_15: rgba(245, 245, 245, 0.15);
+  --light_10: rgba(245, 245, 245, 0.1);
+  --light_5: rgba(245, 245, 245, 0.05);
+  --block_padding: 2rem;
+  --inline_padding: 2rem;
+  --max_width: 1512px;
+  --min_width: 25rem;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --block_padding: 1.5rem;
+    --inline_padding: 1.5rem;
+  }
+}
