@@ -40,7 +40,9 @@ const Home = () => {
                             <directionalLight position={[-5, 5, 5]} intensity={0.5} />
                             <Commodore />
                             <OrbitControls
-                                makeDefault
+                                // makeDefault
+                                minPolarAngle={0}
+                                maxPolarAngle={Math.PI / 2}
                                 onPointerDown={() => setIsRotating(false)} 
                                 onPointerUp={() => setIsRotating(true)}
                                 onPointerLeave={() => setIsRotating(true)}
