@@ -23,4 +23,5 @@
     border-radius: 0.9375rem;
     background: radial-gradient(60.78% 60.78% at 50% 50%, #465072 0%, #292E3A 100%);
     cursor: all-scroll;
+    transform: transale3d(0,0,0);
 }
