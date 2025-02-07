@@ -10,7 +10,7 @@ import './index.css'
 function App() {
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
         <Toaster
           // position="top-center"
           toastOptions={{
