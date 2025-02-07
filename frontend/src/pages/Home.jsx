@@ -1,51 +1,49 @@
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { useGLTF, Stage, OrbitControls } from '@react-three/drei';
+import { Canvas, useFrame } from "@react-three/fiber";
+import { useGLTF, Stage, OrbitControls } from "@react-three/drei";
 import styles from "@css/home.module.css";
-import * as THREE from 'three';
-import { Bloom, DepthOfField, EffectComposer, Noise, Vignette } from '@react-three/postprocessing'
-import { useRef, useState } from 'react';
+import * as THREE from "three";
+import { Bloom, DepthOfField, EffectComposer, Noise, Vignette } from "@react-three/postprocessing";
+import { useRef, useState } from "react";
 
-function Commodore(props) {
-    const { scene, animations } = useGLTF(`commodore_scsc_center.glb`);
+function Commodore({ targetSpeed }) {
+    const { scene, animations } = useGLTF("commodore_scsc_center.glb");
+    const mixer = animations.length ? new THREE.AnimationMixer(scene) : null;
 
-    let mixer;
-    if (animations.length) {
-        mixer = new THREE.AnimationMixer(scene);
-        animations.forEach(clip => mixer.clipAction(clip).play());
-    }
+    animations.forEach((clip) => mixer?.clipAction(clip).play());
 
-    // const { isRotating } = useThree();
+    const rotationSpeed = useRef(0.001);
 
     useFrame((state, delta) => {
-        if (scene) { 
-            scene.rotation.y += 0.001;
-            mixer?.update(delta);
+        rotationSpeed.current = THREE.MathUtils.lerp(rotationSpeed.current, targetSpeed, 0.05);
+
+        if (scene) {
+            scene.rotation.y += rotationSpeed.current;
         }
+        mixer?.update(delta);
     });
 
-    return <primitive object={scene} scale={0.006} {...props} />;
+    return <primitive object={scene} scale={0.006} />;
 }
 
 const Home = () => {
-    // const [isRotating, setIsRotating] = useState(true);
+    const [targetSpeed, setTargetSpeed] = useState(0.001);
 
     return (
         <>
             <section id={styles.hero_section}>
                 <div id={styles.hero_container}>
-                    <Canvas camera={{ fov: 10 }} id={styles.hero_canvas}>
+                    <Canvas id={styles.hero_canvas} camera={{ fov: 10 }}>
                         <Stage shadows={null} environment="" intensity={0.01}>
                             <ambientLight intensity={1} />
                             <directionalLight position={[5, 5, 5]} intensity={1} />
                             <directionalLight position={[-5, 5, 5]} intensity={0.5} />
-                            <Commodore />
+                            <Commodore targetSpeed={targetSpeed} />
                             <OrbitControls
-                                // makeDefault
                                 minPolarAngle={0}
                                 maxPolarAngle={Math.PI / 2}
-                                onPointerDown={() => setIsRotating(false)} 
-                                onPointerUp={() => setIsRotating(true)}
-                                onPointerLeave={() => setIsRotating(true)}
+                                enableZoom={false}
+                                onStart={() => setTargetSpeed(0)}
+                                onEnd={() => setTargetSpeed(0.001)}
                             />
                             <EffectComposer>
                                 <DepthOfField focusDistance={0} focalLength={1} bokehScale={2} height={480} />

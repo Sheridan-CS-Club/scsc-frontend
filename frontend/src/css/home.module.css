@@ -22,6 +22,11 @@
 #hero_canvas {
     border-radius: 0.9375rem;
     background: radial-gradient(60.78% 60.78% at 50% 50%, #465072 0%, #292E3A 100%);
+    /* background: radial-gradient(60.78% 60.78% at 50% 50%, #5e9978 0%, #496755 100%); */
+    /* background: radial-gradient(60.78% 60.78% at 50% 50%, #467259 0%, #293a30 100%); */
+    /* background: radial-gradient(60.78% 60.78% at 50% 50%, #2f4d3c 0%, #1e2b24 100%); */
+    /* background: radial-gradient(60.78% 60.78% at 50% 50%, #544672 0%, #2e293a 100%); */
+    /* background: radial-gradient(60.78% 60.78% at 50% 50%, #724646 0%, #3a2929 100%); */
     cursor: all-scroll;
     transform: transale3d(0,0,0);
 }
