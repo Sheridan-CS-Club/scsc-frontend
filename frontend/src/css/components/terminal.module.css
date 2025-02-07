@@ -1,0 +1,50 @@
+#terminal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.9375rem;
+    /* background: radial-gradient(60.78% 60.78% at 50% 50%, #5b5b5b 0%, #3f3f3f 100%); */
+    background: black;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: var(--block_padding) var(--inline_padding);
+    box-sizing: border-box;
+    z-index: 1;
+    color: var(--primary);
+    font-size: 1.25rem;
+    animation: fadeInUp .5s ease;
+    overflow: hidden;
+}
+
+#terminal * {
+    font-family: Geist Mono;
+}
+
+#terminal pre {
+    margin: 0;
+}
+
+#terminal input {
+    background: none;
+    border: none;
+    outline: none;
+    width: fill-available;
+    color: var(--primary);
+    font-size: 1.25rem;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        /* transform: translateY(.5rem); */
+    }
+    to {
+        opacity: 1;
+        /* transform: translateY(0); */
+    }
+}
+
