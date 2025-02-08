@@ -91,7 +91,6 @@ const Home = () => {
         return () => window.removeEventListener("keydown", handleKeyDown);
     }, [handleKeyDown]);
 
-
     return (
         <section id={styles.hero_section} ref={heroRef}>
             <div id={styles.hero_container}>
@@ -114,6 +113,9 @@ const Home = () => {
                             minPolarAngle={0}
                             maxPolarAngle={Math.PI / 2}
                             enableZoom={false}
+                            enablePan={false}
+                            onStart={() => setTargetSpeed(0)}
+                            onEnd={() => setTargetSpeed(0.001)}
                         />
                         <EffectComposer>
                             <DepthOfField focusDistance={0} focalLength={1} bokehScale={2} height={480} />
