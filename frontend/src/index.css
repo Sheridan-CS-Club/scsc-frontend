@@ -33,13 +33,20 @@ a {
   color: inherit;
 }
 
+.toast {
+  border: 1px solid var(--primary);
+  background-color: var(--primary_bg);
+}
+
 .toast div {
+  color: var(--light);
   font-style: normal;
   font-size: 1rem;
 }
 
 :root {
   --primary: #52ddb8;
+  --primary_bg: #267d68;
   --primary_50: rgb(82, 221, 184, .5);
   --primary_25: rgb(82, 221, 184, .25);
   --secondary: #9083c2;

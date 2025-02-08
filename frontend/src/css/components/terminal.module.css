@@ -2,6 +2,7 @@
     position: absolute;
     top: 0;
     left: 0;
+    overflow: hidden;
     width: 100%;
     height: 100%;
     border-radius: 0.9375rem;
@@ -17,7 +18,7 @@
     color: var(--primary);
     font-size: 1.25rem;
     animation: fadeInUp .5s ease;
-    overflow: hidden;
+    transition: padding-top .5s ease;
 }
 
 #terminal * {
@@ -53,3 +54,8 @@
     }
 }
 
+@media (max-width: 1325px) {
+    #terminal {
+        padding-top: 4rem;
+    }
+}

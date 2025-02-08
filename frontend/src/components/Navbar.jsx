@@ -27,7 +27,20 @@ function Navbar() {
 
     return (
         <nav className={styles.nav_container}>
-            <div className={styles.nav} data-toggled={toggled}>
+            <div className={styles.nav} data-toggled={toggled} data-mode="mini">
+                {/* left decal */}
+                <svg className={styles.nav_decal} width="101" height="42" viewBox="0 0 101 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M90.4573 40.5C59.9573 40.5 62.4573 42.478 37.9573 22.0317C13.4573 1.58538 14.21 1.5 2.20973 1.5C-9.79049 1.5 71.4573 1 71.4573 1C71.4573 1 120.957 40.5 90.4573 40.5Z" fill="#1A1A1A" stroke="#1A1A1A" />
+                </svg>
+                {/* mobile left decal */}
+                <svg className={styles.nav_decal} width="101" height="50" viewBox="0 0 101 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M90.1094 48.9369C59.728 48.9369 62.2183 51.3374 37.8136 26.5239C13.4088 1.71042 14.1586 1.6068 2.20503 1.6068C-9.74854 1.6068 71.1833 1 71.1833 1C71.1833 1 120.491 48.9369 90.1094 48.9369Z" fill="#1A1A1A" stroke="#1A1A1A" />
+                </svg>
+                {/* bottom-right decal */}
+                <svg className={styles.nav_decal} width="29" height="30" viewBox="0 0 29 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.5 0H29V15V30C29 30 29 17.2881 20.0969 8.64407C11.1939 0 0 0 0 0H14.5Z" fill="#1A1A1A" />
+                </svg>
+
                 <Link id={styles.logo} to="/" onClick={() => clickHandler()}>
                     Sheridan CS Club &nbsp;🖥️ <span>| 2025</span>
                 </Link>
