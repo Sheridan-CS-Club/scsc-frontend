@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import Navbar from "@components/Navbar";
+import Navbar from "@components/Navbar";
 // import Footer from "@components/Footer";
 import Home from "@pages/Home";
 // import About from "@pages/About";
@@ -15,8 +15,10 @@ function App() {
           // position="top-center"
           toastOptions={{
             className: "toast",
+            duration: 5000,
           }}
         />
+        <Navbar/>
         <Routes>
           <Route path="/" element={<Home />} />
           {/* <Route path="/contact" element={<Contact />} /> */}

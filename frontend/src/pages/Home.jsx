@@ -1,5 +1,4 @@
 import { useRef, useState, useEffect, useCallback } from "react";
-import {  } from "react";
 import styles from "@css/home.module.css";
 import Terminal from "@components/Terminal";
 import { Canvas, useFrame } from "@react-three/fiber";
@@ -62,7 +61,7 @@ const Home = () => {
     const [targetSpeed, setTargetSpeed] = useState(0.001);
     const [enableControls, setEnableControls] = useState(true);
     const [animateCamera, setAnimateCamera] = useState(false);
-
+    const heroRef = useRef(null);
 
     const handleKeyDown = useCallback((e) => {
         if (e.key === "Escape") {
@@ -94,7 +93,7 @@ const Home = () => {
 
 
     return (
-        <section id={styles.hero_section}>
+        <section id={styles.hero_section} ref={heroRef}>
             <div id={styles.hero_container}>
                 <Canvas id={styles.hero_canvas} camera={{ fov: 10, position: [1, 3, 10] }}>
                     <Stage shadows={null} environment="" intensity={0.01}>
@@ -124,6 +123,7 @@ const Home = () => {
                         </EffectComposer>
                     </Stage>
                 </Canvas>
+                {!showTerminal && <div id={styles.hero_hint}>Press enter to start.</div>}
                 {showTerminal && <Terminal />}
             </div>
         </section>
