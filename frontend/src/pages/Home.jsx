@@ -1,4 +1,5 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
+import {  } from "react";
 import styles from "@css/home.module.css";
 import Terminal from "@components/Terminal";
 import { Canvas, useFrame } from "@react-three/fiber";
@@ -6,7 +7,8 @@ import { useGLTF, Stage, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { Bloom, DepthOfField, EffectComposer, Noise, Vignette } from "@react-three/postprocessing";
 
-function Commodore({ moveToCenter, onReachedCenter, targetSpeed }) {
+// function Commodore({ moveToCenter, onReachedCenter, targetSpeed }) {
+function Commodore({ moveToCenter, targetSpeed }) {
     const { scene } = useGLTF("commodore_scsc_center.glb");
     const rotationSpeed = useRef(0.001);
 
@@ -22,7 +24,7 @@ function Commodore({ moveToCenter, onReachedCenter, targetSpeed }) {
             scene.rotation.z = THREE.MathUtils.lerp(scene.rotation.z, 0, 0.05);
 
             if (scene.position.distanceTo(new THREE.Vector3(0, 0, 0)) < 0.01) {
-                onReachedCenter();
+                // onReachedCenter();
             }
         }
     });
@@ -39,7 +41,7 @@ const targetCameraPosition = new THREE.Vector3(
 
 function CameraAnimation({ animateCamera, targetPosition, onAnimationEnd }) {
     const camera = useRef();
-    
+
     useFrame(({ camera }) => {
         if (animateCamera) {
             // console.log("camera position: ", camera.position);
@@ -60,24 +62,36 @@ const Home = () => {
     const [targetSpeed, setTargetSpeed] = useState(0.001);
     const [enableControls, setEnableControls] = useState(true);
     const [animateCamera, setAnimateCamera] = useState(false);
-    
 
-    useEffect(() => {
-        const handleKeyDown = () => {
+
+    const handleKeyDown = useCallback((e) => {
+        if (e.key === "Escape") {
+            setShowTerminal(false);
+            setMoveToCenter(false);
+            setTargetSpeed(0.001);
+            setEnableControls(true);
+        } else if (e.key === "Enter") {
             setAnimateCamera(true);
             setMoveToCenter(true);
             setTargetSpeed(0);
-            setEnableControls(false); 
+            setEnableControls(false);
+            
+            // setTimeout(() => {
+            //     setShowTerminal(true);
+            //     setEnableControls(true);
+            //     setAnimateCamera(false);
+            // }, 1500);
+            setShowTerminal(true);
+            setEnableControls(true);
+            setAnimateCamera(false);
+        }
+    }, []); 
 
-            setTimeout(() => {
-                setShowTerminal(true);
-                setEnableControls(true);
-            }, 1500);
-        };
-
-        window.addEventListener("keydown", handleKeyDown, { once: true });
+    useEffect(() => {
+        window.addEventListener("keydown", handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
-    }, []);
+    }, [handleKeyDown]);
+
 
     return (
         <section id={styles.hero_section}>
@@ -87,15 +101,16 @@ const Home = () => {
                         <ambientLight intensity={1} />
                         <directionalLight position={[5, 5, 5]} intensity={1} />
                         <directionalLight position={[-5, 5, 5]} intensity={0.5} />
-                        <Commodore moveToCenter={moveToCenter} onReachedCenter={() => setShowTerminal(true)} targetSpeed={targetSpeed} />
-                        <CameraAnimation 
-                            animateCamera={animateCamera} 
-                            targetPosition={targetCameraPosition} 
-                            onAnimationEnd={() => setAnimateCamera(false)} 
+                        {/* <Commodore moveToCenter={moveToCenter} onReachedCenter={() => setShowTerminal(true)} targetSpeed={targetSpeed} /> */}
+                        <Commodore moveToCenter={moveToCenter} targetSpeed={targetSpeed} />
+                        <CameraAnimation
+                            animateCamera={animateCamera}
+                            targetPosition={targetCameraPosition}
+                            onAnimationEnd={() => setAnimateCamera(false)}
                         />
-                        <OrbitControls 
-                            enabled={enableControls} 
-                            target={[0, 0, 0]} 
+                        <OrbitControls
+                            enabled={enableControls}
+                            target={[0, 0, 0]}
                             // makeDefault
                             minPolarAngle={0}
                             maxPolarAngle={Math.PI / 2}
@@ -103,13 +118,13 @@ const Home = () => {
                         />
                         <EffectComposer>
                             <DepthOfField focusDistance={0} focalLength={1} bokehScale={2} height={480} />
-                            <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={300} />
+                            <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={320} />
                             <Noise opacity={0.1} />
                             <Vignette eskil={false} offset={0.1} darkness={1.1} />
                         </EffectComposer>
                     </Stage>
                 </Canvas>
-                {showTerminal && <Terminal/>}
+                {showTerminal && <Terminal />}
             </div>
         </section>
     );

@@ -8,7 +8,7 @@
     /* background: radial-gradient(60.78% 60.78% at 50% 50%, #5b5b5b 0%, #3f3f3f 100%); */
     background: black;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: flex-start;
     flex-direction: column;
     padding: var(--block_padding) var(--inline_padding);
@@ -28,11 +28,16 @@
     margin: 0;
 }
 
+#terminal div {
+    width: 100%;
+}
+
 #terminal input {
     background: none;
     border: none;
     outline: none;
-    width: fill-available;
+    padding: 0;
+    width: calc(100% - 1.5rem);
     color: var(--primary);
     font-size: 1.25rem;
 }

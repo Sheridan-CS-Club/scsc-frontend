@@ -2,7 +2,6 @@ import styles from "@css/components/terminal.module.css";
 import React, { useEffect, useState, useRef } from "react";
 
 const Terminal = () => {
-    const [displayedText, setDisplayedText] = useState("");
     const [currentCommand, setCurrentCommand] = useState("");
     const [commandHistory, setCommandHistory] = useState([]);
     const [isTyping, setIsTyping] = useState(false);
@@ -13,13 +12,16 @@ const Terminal = () => {
     };
 
     const handleCommandExecute = () => {
-        if (currentCommand.trim() !== "") {
-            setCommandHistory((prevHistory) => [
-                ...prevHistory,
-                `$ ${currentCommand}`, 
-                executeCommand(currentCommand),
-            ]);
-            setCurrentCommand("");
+        if (currentCommand.trim() === "") return;
+
+        const userInput = `$ ${currentCommand}`;
+        const commandOutput = executeCommand(currentCommand) ?? ""; 
+
+        setCommandHistory((prevHistory) => [...prevHistory, userInput]);
+        setCurrentCommand("");
+
+        if (commandOutput) {
+            animateLatestCommand(commandOutput);
         }
     };
 
@@ -29,8 +31,20 @@ const Terminal = () => {
         const args = parts.slice(1).join(" ");
 
         switch (cmd) {
+            case "help":
+                return `
+Available commands:
+    echo [text]   - Prints the text to the terminal.
+    quit          - Closes the terminal.
+    date          - Displays the current date.
+    time          - Displays the current time.
+    clear         - Clears the terminal screen.
+    help          - Displays this help message.
+    `;
             case "echo":
-                return args;
+                return args || "";
+            case "quit":
+                return "Terminal will close now, ong ong (press escape).";
             case "date":
                 return new Date().toLocaleDateString();
             case "time":
@@ -39,35 +53,36 @@ const Terminal = () => {
                 setCommandHistory([]);
                 return "";
             default:
-                return `Command '${cmd}' not found.`;
+                return `Command '${cmd}' not found.`; 
         }
+    };
+
+    const animateLatestCommand = (text) => {
+        let index = 0;
+        setIsTyping(true);
+
+        setCommandHistory((prevHistory) => [...prevHistory, ""]);
+
+        const interval = setInterval(() => {
+            setCommandHistory((prevHistory) => {
+                const updatedHistory = [...prevHistory];
+                updatedHistory[updatedHistory.length - 1] = text.slice(0, index + 1);
+                return updatedHistory;
+            });
+
+            index++;
+            if (index >= text.length) {
+                clearInterval(interval);
+                setIsTyping(false);
+            }
+        }, 10);
     };
 
     useEffect(() => {
         if (inputRef.current) {
             inputRef.current.focus();
         }
-    }, []);
-
-    useEffect(() => {
-        if (commandHistory.length > 0) {
-            let textToDisplay = commandHistory.join("\n");
-            let index = 0;
-            setIsTyping(true);
-            const interval = setInterval(() => {
-                if (index <= textToDisplay.length) {
-                    setDisplayedText(textToDisplay.slice(0, index));
-                    index++;
-                } else {
-                    clearInterval(interval);
-                    setIsTyping(false);
-                }
-            }, 10);
-            return () => clearInterval(interval);
-        } else {
-            setDisplayedText("");
-        }
-    }, [commandHistory]);
+    }, [isTyping]);
 
     return (
         <div id={styles.terminal}>
@@ -81,7 +96,7 @@ const Terminal = () => {
                     <div className={styles.terminalTitle}>Fake SCSC Terminal</div>
                 </div>
                 <div className={styles.terminalBody}>
-                    <pre>{displayedText}</pre>
+                    <pre>{commandHistory.join("\n")}</pre>
                     {!isTyping && (
                         <div className={styles.terminalInputLine}>
                             $ <input
