@@ -85,3 +85,9 @@ a {
     --inline_padding: 1.5rem;
   }
 }
+
+@media (max-width: 345px) {
+  :root {
+    --inline_padding: 1rem;
+  }
+}

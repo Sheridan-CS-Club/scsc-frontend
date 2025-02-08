@@ -26,6 +26,16 @@
     transform: transale3d(0,0,0);
 }
 
+@media (max-width: 768px) {
+    #hero_section {
+        height: 90svh;
+    }
+    
+    #hero_hint::after {
+        content: "Double-tap on mobile.";
+    }
+}
+
 #hero_hint {
     z-index: 2;
     position: absolute;
@@ -33,6 +43,7 @@
     bottom: 1.75rem;
     justify-content: center;
     align-items: center;
+    flex-flow: column nowrap;
     width: 100%;
     color: var(--light_50);
     text-align: center;
@@ -54,3 +65,9 @@
         opacity: 1;
     }
 } */
+
+@media (max-width: 345px) {
+    #hero_container {
+        margin-top: 6.75rem;
+    }
+}

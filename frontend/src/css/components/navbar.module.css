@@ -250,3 +250,24 @@
     }
 
 }
+
+@media (max-width: 450px) {
+    .nav[data-mode=mini] {
+        width: 15rem;
+    }
+
+    #logo span {
+        display: none;
+    }
+}
+
+@media (max-width: 345px) {
+    .nav[data-mode=mini] {
+        width: 100%;
+        padding-inline: var(--inline_padding);
+    }
+
+    .nav_decal {
+        display: none;
+    }
+}
