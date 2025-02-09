@@ -26,16 +26,6 @@
     transform: transale3d(0,0,0);
 }
 
-@media (max-width: 768px) {
-    #hero_section {
-        height: 90svh;
-    }
-    
-    #hero_hint::after {
-        content: "Double-tap on mobile.";
-    }
-}
-
 #hero_hint {
     z-index: 2;
     position: absolute;
@@ -52,8 +42,32 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+    user-select: none;
     /* animation: blinking 6s infinite; */
 }
+
+@media (max-width: 768px) {
+    #hero_section {
+        height: 90svh;
+    }
+    
+    #hero_hint {
+        visibility: hidden;
+    }
+    #hero_hint::after {
+        content: "Double-tap or press enter to start.";
+        visibility: visible;
+    }
+}
+
+@media(max-width: 430px) {
+    #hero_hint {
+        padding-inline: 1rem;
+        font-size: 0.875rem;
+        bottom: 1.5rem;
+    }
+}
+
 /* 
 @keyframes blinking {
     0%, 100% {
