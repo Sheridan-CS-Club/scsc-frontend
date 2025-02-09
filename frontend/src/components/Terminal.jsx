@@ -93,7 +93,7 @@ Available commands:
                         <span className={styles.yellowButton}></span>
                         <span className={styles.greenButton}></span>
                     </div>
-                    <div className={styles.terminalTitle}>Fake SCSC Terminal</div>
+                    <div className={styles.terminalTitle}>SCSC Commodore v0.1.0</div>
                 </div>
                 <div className={styles.terminalBody}>
                     <pre>{commandHistory.join("\n")}</pre>
