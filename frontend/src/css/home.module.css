@@ -23,7 +23,7 @@
     /* background: radial-gradient(60.78% 60.78% at 50% 50%, #5e9978 0%, #496755 100%); */
     /* background: radial-gradient(60.78% 60.78% at 50% 50%, #467259 0%, #293a30 100%); */
     /* background: radial-gradient(60.78% 60.78% at 50% 50%, #46726c 0%, #293a36 100%); */
-    cursor: all-scroll;
+    cursor: move;
     transform: transale3d(0,0,0);
 }
 

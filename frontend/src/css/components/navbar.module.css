@@ -51,7 +51,7 @@
     display: flex;
     align-items: center;
     color: var(--light);
-    font-family: "Geist";
+    font-family: "Space Grotesk";
     font-size: 1.125rem;
     font-weight: 500;
     letter-spacing: -0.0225rem;
@@ -88,10 +88,9 @@
 }
 
 .list_item a {
-    font-family: "Geist";
+    font-family: "Space Grotesk";
     text-decoration: none;
     color: var(--light_95);
-    font-family: Geist;
     font-size: 1rem;
     font-style: normal;
     font-weight: 500;

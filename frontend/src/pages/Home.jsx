@@ -1,12 +1,11 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import styles from "@css/home.module.css";
 import Terminal from "@components/Terminal";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useGLTF, Stage, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
-import { Bloom, DepthOfField, EffectComposer, Noise, Vignette } from "@react-three/postprocessing";
+import { Bloom, DepthOfField, EffectComposer, Noise, Vignette, ToneMapping } from "@react-three/postprocessing";
 
-// function Commodore({ moveToCenter, onReachedCenter, targetSpeed }) {
 function Commodore({ moveToCenter, targetSpeed }) {
     const { scene } = useGLTF("commodore_scsc_center.glb");
     const rotationSpeed = useRef(0.001);
@@ -21,38 +20,35 @@ function Commodore({ moveToCenter, targetSpeed }) {
             scene.rotation.y = THREE.MathUtils.lerp(scene.rotation.y, 0, 0.05);
             scene.rotation.x = THREE.MathUtils.lerp(scene.rotation.x, 0, 0.05);
             scene.rotation.z = THREE.MathUtils.lerp(scene.rotation.z, 0, 0.05);
-
-            if (scene.position.distanceTo(new THREE.Vector3(0, 0, 0)) < 0.01) {
-                // onReachedCenter();
-            }
         }
     });
 
     return <primitive object={scene} scale={0.006} />;
 }
 
-const targetCameraPosition = new THREE.Vector3(
-    // this is taken from current camera position
-    0.03536585056999449,
-    0.10601775760072982,
-    0.3533925253357664
-);
+function CameraAnimation({ animateCamera, onAnimationEnd, resetZoom }) {
+    const { camera } = useThree();
+    const initialZoom = useRef(1.5);
+    const targetZoom = useRef(3);
 
-function CameraAnimation({ animateCamera, targetPosition, onAnimationEnd }) {
-    const camera = useRef();
-
-    useFrame(({ camera }) => {
+    useFrame(() => {
         if (animateCamera) {
-            // console.log("camera position: ", camera.position);
+            // zoom in
+            camera.zoom = THREE.MathUtils.lerp(camera.zoom, targetZoom.current, 0.1);
+            camera.updateProjectionMatrix();
 
-            // camera.position.lerp(targetPosition, 0.008);
-            // if (camera.position.distanceTo(targetPosition) < 0.01) {
-            //     onAnimationEnd();
-            // }
+            // check if zoom complete
+            if (Math.abs(camera.zoom - targetZoom.current) < 0.01) {
+                onAnimationEnd();
+            }
+        } else if (resetZoom) {
+            // zoom out
+            camera.zoom = THREE.MathUtils.lerp(camera.zoom, initialZoom.current, 0.1);
+            camera.updateProjectionMatrix();
         }
     });
 
-    return <perspectiveCamera ref={camera} />;
+    return null;
 }
 
 const Home = () => {
@@ -61,6 +57,7 @@ const Home = () => {
     const [targetSpeed, setTargetSpeed] = useState(0.001);
     const [enableControls, setEnableControls] = useState(true);
     const [animateCamera, setAnimateCamera] = useState(false);
+    const [resetZoom, setResetZoom] = useState(false);
     const heroRef = useRef(null);
 
     const handleKeyDown = useCallback((e) => {
@@ -69,22 +66,15 @@ const Home = () => {
             setMoveToCenter(false);
             setTargetSpeed(0.001);
             setEnableControls(true);
+            setResetZoom(true); // Trigger zoom-out animation
         } else if (e.key === "Enter") {
             setAnimateCamera(true);
             setMoveToCenter(true);
             setTargetSpeed(0);
             setEnableControls(false);
-            
-            // setTimeout(() => {
-            //     setShowTerminal(true);
-            //     setEnableControls(true);
-            //     setAnimateCamera(false);
-            // }, 1500);
-            setShowTerminal(true);
-            setEnableControls(true);
-            setAnimateCamera(false);
+            setResetZoom(false); // Disable zoom-out animation
         }
-    }, []); 
+    }, []);
 
     useEffect(() => {
         window.addEventListener("keydown", handleKeyDown);
@@ -94,22 +84,24 @@ const Home = () => {
     return (
         <section id={styles.hero_section} ref={heroRef}>
             <div id={styles.hero_container}>
-                <Canvas id={styles.hero_canvas} camera={{ fov: 10, position: [1, 3, 10] }}>
-                    <Stage shadows={null} environment="" intensity={0.01}>
+                <Canvas id={styles.hero_canvas} camera={{ fov: 10, position: [7, 1.75, 10], zoom: 1.5 }}>
+                    <Stage shadows={null} environment={null} intensity={0.01}>
                         <ambientLight intensity={1} />
                         <directionalLight position={[5, 5, 5]} intensity={1} />
                         <directionalLight position={[-5, 5, 5]} intensity={0.5} />
-                        {/* <Commodore moveToCenter={moveToCenter} onReachedCenter={() => setShowTerminal(true)} targetSpeed={targetSpeed} /> */}
                         <Commodore moveToCenter={moveToCenter} targetSpeed={targetSpeed} />
                         <CameraAnimation
                             animateCamera={animateCamera}
-                            targetPosition={targetCameraPosition}
-                            onAnimationEnd={() => setAnimateCamera(false)}
+                            onAnimationEnd={() => {
+                                setShowTerminal(true);
+                                setEnableControls(true);
+                                setAnimateCamera(false);
+                            }}
+                            resetZoom={resetZoom}
                         />
                         <OrbitControls
                             enabled={enableControls}
                             target={[0, 0, 0]}
-                            // makeDefault
                             minPolarAngle={0}
                             maxPolarAngle={Math.PI / 2}
                             enableZoom={false}
@@ -119,9 +111,10 @@ const Home = () => {
                         />
                         <EffectComposer>
                             <DepthOfField focusDistance={0} focalLength={1} bokehScale={2} height={480} />
-                            <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={320} />
+                            {/* <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={320} /> */}
                             <Noise opacity={0.1} />
                             <Vignette eskil={false} offset={0.1} darkness={1.1} />
+                            <ToneMapping adaptive resolution={256}/>
                         </EffectComposer>
                     </Stage>
                 </Canvas>

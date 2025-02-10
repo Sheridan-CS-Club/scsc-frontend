@@ -1,4 +1,9 @@
 @font-face {
+  font-family: "Space Grotesk";
+  src: url("assets/fonts/SpaceGrotesk.ttf") format("truetype");
+}
+
+@font-face {
   font-family: "Geist";
   src: url("assets/fonts/Geist.ttf") format("truetype");
 }
@@ -19,7 +24,7 @@ body {
 }
 
 * {
-  font-family: "Geist", sans-serif;
+  font-family: "Space Grotesk", sans-serif;
   box-sizing: border-box;
 }
 
