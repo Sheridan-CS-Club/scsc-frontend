@@ -104,7 +104,6 @@
     gap: 1.75rem;
     width: clamp(var(--min_width), 100%, var(--max_width));
     height: 100%;
-    margin-bottom: 8rem;
 }
 
 /* #about_container h1, 
@@ -140,10 +139,10 @@
     opacity: .15;
 } */
 
-#about_container h1::before {
+/* #about_container h1::before {
     top: 12.5rem;
     opacity: .075;
-}
+} */
 
 #about_container h1 span {
     color: var(--secondary);
@@ -154,7 +153,7 @@
     display: flex;
     flex-flow: column nowrap;
     width: 100%;
-    gap: 1.5rem;
+    gap: 2rem;
 }
 
 #about_content p {
@@ -238,5 +237,107 @@
 @media (max-width: 331px) {
     #about_container h1 {
         font-size: 1.5rem;
+    }
+}
+
+/* || WELCOME SECTION */
+#welcome_section {
+    margin-top: 5.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 21.5rem;
+    background: url('../assets/images/home/welcome_bg.svg') repeat center center;
+    background-size: cover;
+}
+
+#welcome_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    gap: 1.75rem;
+    width: clamp(var(--min_width), 100%, var(--max_width));
+    height: 100%;
+}
+
+#welcome_container h1 {
+    margin: 0;
+    color: var(--light);
+    text-align: center;
+    font-family: "Space Grotesk";
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.06rem;
+}
+
+.rounded_button {
+    display: flex;
+    width: 15.875rem;
+    padding: 0.75rem 1.5rem;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 1rem;
+    border: 1px solid var(--light_50);
+    background: var(--dark);
+    color: var(--light);
+    transition: background-color .2s;
+}
+
+.rounded_button:hover {
+    background: var(--dark_5);
+}
+
+#welcome_button h5 {
+    margin: 0;
+    color: var(--light);
+    font-family: "Space Grotesk";
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.02rem;
+}
+
+#welcome_button p {
+    margin: 0;
+    color: var(--light_50);
+    font-family: "Space Grotesk";
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.015rem;
+}
+
+#welcome_button img {
+    transition: scale .2s;;
+}
+
+#welcome_button:hover img {
+    animation: shake 0.5s;
+    scale: 1.1;
+}
+
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+@media (max-width: 768px) {
+    #welcome_container h1 {
+        font-size: 2.25rem;
     }
 }

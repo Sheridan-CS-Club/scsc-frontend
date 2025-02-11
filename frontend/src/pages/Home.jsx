@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import styles from "@css/home.module.css";
+import discord from "@assets/icons/discord.svg";
 import Terminal from "@components/Terminal";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useGLTF, Stage, OrbitControls } from "@react-three/drei";
@@ -139,6 +140,18 @@ const Home = () => {
                         </p>
                         <p id={styles.quote_author}>- SCSC team</p>
                     </div>
+                </div>
+            </section>
+            <section id={styles.welcome_section}>
+                <div id={styles.welcome_container}>
+                    <h1>Welcome to the SCSC!</h1>
+                    <a id={styles.welcome_button} class={styles.rounded_button} href="https://discord.gg/3CXVBXeeSr" target="_blank">
+                       <div>
+                            <h5>Join the Club Today!</h5>
+                            <p>All on Discord</p>
+                       </div>
+                       <img src={discord} alt="discord logo" />
+                    </a>
                 </div>
             </section>
         </>
