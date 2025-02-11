@@ -54,7 +54,7 @@ a {
   --primary_bg: #267d68;
   --primary_50: rgb(82, 221, 184, .5);
   --primary_25: rgb(82, 221, 184, .25);
-  --secondary: #9083c2;
+  --secondary: #465072;
   --accent: #D1FA94;
   --bg: #c4d5fb;
   --gray: #7d7d7d;
@@ -80,7 +80,8 @@ a {
   --light_5: rgba(245, 245, 245, 0.05);
   --block_padding: 2rem;
   --inline_padding: 2rem;
-  --max_width: 1512px;
+  /* --max_width: 1512px; */
+  --max_width: 1325px;
   --min_width: 25rem;
 }
 

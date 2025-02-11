@@ -86,3 +86,157 @@
         margin-top: 6.75rem;
     }
 }
+
+/* || ABOUT SECTION */
+#about_section {
+    margin-top: 4.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#about_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: column nowrap;
+    gap: 1.75rem;
+    width: clamp(var(--min_width), 100%, var(--max_width));
+    height: 100%;
+    margin-bottom: 8rem;
+}
+
+/* #about_container h1, 
+#about_container h1::after,
+#about_container h1::before { */
+#about_container h1 {
+    position: relative;
+    margin-block: 0;
+    text-align: center;
+    font-family: "Space Grotesk";
+    font-size: 4.75rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0.0475rem;
+    color: #1a1a1a;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: var(--secondary);
+    text-align: center;
+}
+
+/* 
+#about_container h1::after,
+#about_container h1::before {
+    position: absolute;
+    top: 5rem;
+    left: 0;
+    width: 100%;
+    content: "SHERIDAN COMPUTER SCIENCE CLUB";
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: var(--secondary);
+    text-align: center;
+    opacity: .15;
+} */
+
+#about_container h1::before {
+    top: 12.5rem;
+    opacity: .075;
+}
+
+#about_container h1 span {
+    color: var(--secondary);
+}
+
+#about_content {
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+    gap: 1.5rem;
+}
+
+#about_content p {
+    margin: 0;
+    max-width: 65rem;
+    color: #9D9D9D;
+    font-family: "Geist Mono";
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 2rem;
+}
+
+#about_content #quote_author {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: fit-content;
+}
+
+@media (max-width: 1400px) {
+    #about_container {
+        padding-inline: var(--inline_padding);
+    }
+
+    #about_container h1 {
+        font-size: 4rem;
+        text-align: start;
+        width: 100%;
+    }
+
+    #about_content p {
+        width: 100%;
+        font-size: 1.125rem;
+    }
+
+    #about_content #quote_author {
+        bottom: -2rem;
+    }
+}
+
+@media (max-width: 1200px) {
+    #about_container {
+        align-items: flex-start;
+    }
+
+    #about_container h1 {
+        max-width: 42.5rem;
+    }
+
+
+}
+
+@media (max-width: 768px) {
+    #about_container {
+        margin-bottom: 6rem;
+    }
+
+    #about_container h1 {
+        font-size: 2.5rem;
+        max-width: 30rem;
+    }
+
+    #about_content p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 470px) {
+    #about_container h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 386px) {
+    #about_container h1 {
+        font-size: 1.75rem;
+    }
+}
+
+@media (max-width: 331px) {
+    #about_container h1 {
+        font-size: 1.5rem;
+    }
+}
