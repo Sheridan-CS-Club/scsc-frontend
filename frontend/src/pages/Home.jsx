@@ -67,19 +67,25 @@ const Home = () => {
             setMoveToCenter(false);
             setTargetSpeed(0.001);
             setEnableControls(true);
-            setResetZoom(true); // Trigger zoom-out animation
+            setResetZoom(true);
         } else if (e.key === "Enter") {
             setAnimateCamera(true);
             setMoveToCenter(true);
             setTargetSpeed(0);
             setEnableControls(false);
-            setResetZoom(false); // Disable zoom-out animation
+            setResetZoom(false);
         }
+        return undefined;
     }, []);
 
+
     useEffect(() => {
-        window.addEventListener("keydown", handleKeyDown);
-        return () => window.removeEventListener("keydown", handleKeyDown);
+        const keyDownListener = (e) => handleKeyDown(e);
+        window.addEventListener("keydown", keyDownListener);
+        
+        return () => {
+            window.removeEventListener("keydown", keyDownListener);
+        };
     }, [handleKeyDown]);
 
     return (
@@ -145,7 +151,7 @@ const Home = () => {
             <section id={styles.welcome_section}>
                 <div id={styles.welcome_container}>
                     <h1>Welcome to the SCSC!</h1>
-                    <a id={styles.welcome_button} class={styles.rounded_button} href="https://discord.gg/3CXVBXeeSr" target="_blank">
+                    <a id={styles.welcome_button} className={styles.rounded_button} href="https://discord.gg/3CXVBXeeSr" target="_blank">
                        <div>
                             <h5>Join the Club Today!</h5>
                             <p>All on Discord</p>

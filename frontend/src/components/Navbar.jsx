@@ -4,6 +4,8 @@ import styles from '@css/components/navbar.module.css';
 import mini_logo from '@assets/logos/logo_light.svg';
 import discord from '@assets/icons/discord.svg';
 import { toast } from 'sonner'
+import { useEffect } from "react";
+
 
 const warningMessage = "Sorry! This part of the website is still under development. Join the discord for more information instead (꩜﹏꩜)";
 
@@ -26,8 +28,8 @@ function Navbar() {
     }
 
     return (
-        <nav className={styles.nav_container}>
-            <div className={styles.nav} data-toggled={toggled} data-mode="mini">
+        <nav className={styles.nav_container} data-mode={location.pathname === "/" ? "mini" : "max"}>
+            <div className={styles.nav} data-toggled={toggled}>
                 {/* left decal */}
                 <svg className={styles.nav_decal} width="101" height="42" viewBox="0 0 101 42" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M90.4573 40.5C59.9573 40.5 62.4573 42.478 37.9573 22.0317C13.4573 1.58538 14.21 1.5 2.20973 1.5C-9.79049 1.5 71.4573 1 71.4573 1C71.4573 1 120.957 40.5 90.4573 40.5Z" fill="#1A1A1A" stroke="#1A1A1A" />
@@ -45,9 +47,9 @@ function Navbar() {
                     Sheridan CS Club &nbsp;🖥️ <span>| 2025</span>
                 </Link>
                 <ul className={styles.list}>
-                    <li>
+                    <Link to="/" onClick={() => clickHandler()}>
                         <img id={styles.mini_logo} src={mini_logo} alt="SCSC logo" />
-                    </li>
+                    </Link>
                     {/* <li className={`${styles.list_item} ${getActive('/')}`}>
                         <Link to="/" onClick={() => clickHandler()}>Home</Link>
                     </li> */}
@@ -56,21 +58,18 @@ function Navbar() {
                         <Link onClick={() => toast.warning(warningMessage)}>About</Link>
                     </li>
                     <li className={`${styles.list_item} ${getActive('/events')}`}>
-                        {/* <Link to="/services" onClick={() => clickHandler()}>Events</Link> */}
-                        <Link onClick={() => toast.warning(warningMessage)}>Events</Link>
+                        {/* <Link to="/events" onClick={() => clickHandler()}>Events</Link> */}
+                        <Link to="/events" onClick={() => clickHandler()}>Events</Link>
                     </li>
                     <li className={`${styles.list_item} ${getActive('/faq')}`}>
-                        {/* <Link to="/parts" onClick={() => clickHandler()}>FAQ</Link> */}
+                        {/* <Link to="/faq" onClick={() => clickHandler()}>FAQ</Link> */}
                         <Link onClick={() => toast.warning(warningMessage)}>FAQ</Link>
                     </li>
                     <li className={styles.list_item}>
-                        <a href="https://discord.gg/3CXVBXeeSr" target="_blank">
-                            <img id={styles.discord} src={discord} alt="Discord"/>
+                        <a id={styles.discord} href="https://discord.gg/3CXVBXeeSr" target="_blank">
+                            <img src={discord} alt="Discord"/>
                         </a>
                     </li>
-                    {/* <li className={`${styles.list_item} ${getActive('/faq')}`}>
-                        <Link to="/faq" onClick={() => clickHandler()}>FAQ</Link>
-                    </li> */}
                     {/* <li id={styles.contact_link} className={`${styles.list_item} ${getActive('/contact')}`}>
                         <Link to="/contact" onClick={() => clickHandler()}>Contact</Link>
                     </li> */}

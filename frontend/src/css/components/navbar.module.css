@@ -4,17 +4,24 @@
     top: 0;
     z-index: 10;
     display: flex;
-    justify-content: flex-end;
     align-items: center;
     width: 100%;
 }  
+.nav_container[data-mode=mini] {
+    justify-content: flex-end;
+}
 
-.nav[data-mode=mini] {
+.nav_container[data-mode=mini] .nav {
     width: clamp(var(--min_width), 74.4%, var(--max_width));
     /* transition: width .5s ease; */
 }
-.nav[data-mode=full] {
-   width: clamp(var(--min_width), 100%, var(--max_width));
+.nav_container[data-mode=max] {
+    justify-content: center;
+}
+
+.nav_container[data-mode=max] .nav {
+    width: clamp(var(--min_width), 100%, var(--max_width));
+    padding-inline: var(--inline_padding);
 }
 
 .nav {
@@ -96,17 +103,26 @@
     font-weight: 500;
     line-height: normal;
     transition: color .1s ease-in-out;
+    user-select: none;
 }
 
 .list_item a:hover {
     color: var(--light_80);
 }
 
+
 #discord {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-inline: 0.5rem 1.5rem;
     width: 1.875rem;
     height: 1.875rem;
     cursor: pointer;
+}
+
+.nav_container[data-mode=max] #discord {
+    margin: 0;
 }
 
 #contact_link {
@@ -228,11 +244,11 @@
 }
 
 @media (max-width: 768px) {
-    .nav[data-mode=mini] {
+    .nav_container[data-mode=mini] .nav {
         width: 20rem;
     }
 
-    .nav[data-toggled=true] .list {
+    .nav_container[data-toggled=true] .nav .list {
         left: 0;
         transition: left 0.3s ease;
     }
@@ -251,17 +267,17 @@
 }
 
 @media (max-width: 450px) {
-    .nav[data-mode=mini] {
+    .nav_container[data-mode=mini] .nav {
         width: 15rem;
     }
-
+    
     #logo span {
         display: none;
     }
 }
 
 @media (max-width: 345px) {
-    .nav[data-mode=mini] {
+    .nav_container[data-mode=mini] .nav {
         width: 100%;
         padding-inline: var(--inline_padding);
     }

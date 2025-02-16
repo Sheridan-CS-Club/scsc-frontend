@@ -81,8 +81,8 @@ a {
   --light_5: rgba(245, 245, 245, 0.05);
   --block_padding: 2rem;
   --inline_padding: 2rem;
-  /* --max_width: 1512px; */
-  --max_width: 1325px;
+  --max_width: 1512px;
+  /* --max_width: 1325px; */
   --min_width: 25rem;
 }
 

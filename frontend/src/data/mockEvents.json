@@ -1,0 +1,93 @@
+[
+    {
+        "name": "Leetcode Jam II",
+        "date": "2025-02-21",
+        "location": "Trafalgar",
+        "category": "Workshops",
+        "description": "Bi-weekly collaborative LeetCode practice session."
+    },
+    {
+        "name": "Sheridan Club Fair",
+        "date": "2025-02-12",
+        "location": "Trafalgar LLC",
+        "category": "Social",
+        "description": "Meet and greet other clubs at Sheridan College."
+    },
+    {
+        "name": "Leetcode Jam I",
+        "date": "2025-01-31",
+        "location": "Trafalgar B306",
+        "category": "Workshops",
+        "description": "Bi-weekly collaborative LeetCode practice session."
+    },
+    {
+        "name": "Hackville",
+        "date": "2025-01-19",
+        "location": "HMC",
+        "category": "Hacks",
+        "description": "Participate in our annual hackathon."
+    },
+    {
+        "name": "Git Gud: A Git Basics Workshop",
+        "date": "2024-12-06",
+        "location": "Trafalgar B306",
+        "category": "Workshops",
+        "description": "Learn the fundamentals of Git version control."
+    },
+    {
+        "name": "Tiffany Jacjha @ Yahoo",
+        "date": "2024-11-25",
+        "location": "Virtual",
+        "category": "Talks",
+        "description": "Guest speaker from Yahoo."
+    },
+    {
+        "name": "Vini Dias @ Electronic Arts",
+        "date": "2024-11-15",
+        "location": "Virtual",
+        "category": "Talks",
+        "description": "Guest speaker from Electronic Arts."
+    },
+    {
+        "name": "GDG DevFest24",
+        "date": "2024-11-02",
+        "location": "HMC",
+        "category": "Other",
+        "description": "Attend the Google Developer Groups festival."
+    },
+    {
+        "name": "Build Your Own AI",
+        "date": "2024-11-01",
+        "location": "Trafalgar G201",
+        "category": "Workshops",
+        "description": "Learn how to build your own AI applications."
+    },
+    {
+        "name": "Cybersecurity Essentials",
+        "date": "2024-09-26",
+        "location": "Trafalgar G203",
+        "category": "Workshops",
+        "description": "Learn essential cybersecurity practices."
+    },
+    {
+        "name": "CS Club Meet",
+        "date": "2024-09-19",
+        "location": "Trafalgar G203",
+        "category": "Social",
+        "description": "Meet and connect with other CS students."
+    },
+    {
+        "name": "Summer Meetup",
+        "date": "2024-08-16",
+        "location": "Trafalgar S235",
+        "category": "Social",
+        "description": "Casual summer meetup for CS students."
+    },
+    {
+        "name": "First CS Club Meet",
+        "date": "2024-07-17",
+        "location": "Trafalgar",
+        "category": "Social",
+        "description": "First CS club meet of the year."
+    }
+]

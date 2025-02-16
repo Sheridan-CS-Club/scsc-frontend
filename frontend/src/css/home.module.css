@@ -153,6 +153,7 @@
     display: flex;
     flex-flow: column nowrap;
     width: 100%;
+    padding-inline: calc(var(--inline_padding)*3);
     gap: 2rem;
 }
 
@@ -172,9 +173,10 @@
     right: 0;
     bottom: 0;
     width: fit-content;
+    padding-inline: calc(var(--inline_padding)*3);
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1450px) {
     #about_container {
         padding-inline: var(--inline_padding);
     }
@@ -185,13 +187,18 @@
         width: 100%;
     }
 
+    #about_content {
+        padding: 0;
+    }
+
     #about_content p {
         width: 100%;
         font-size: 1.125rem;
     }
-
+    
     #about_content #quote_author {
         bottom: -2rem;
+        padding: 0;
     }
 }
 
@@ -203,8 +210,6 @@
     #about_container h1 {
         max-width: 42.5rem;
     }
-
-
 }
 
 @media (max-width: 768px) {
