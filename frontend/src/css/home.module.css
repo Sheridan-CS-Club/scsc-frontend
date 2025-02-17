@@ -120,7 +120,7 @@
     line-height: normal;
     letter-spacing: 0.0475rem;
     color: #1a1a1a;
-    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-width: 3px;
     -webkit-text-stroke-color: var(--secondary);
     text-align: center;
 }
