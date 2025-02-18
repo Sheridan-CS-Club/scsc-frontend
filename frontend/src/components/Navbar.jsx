@@ -55,15 +55,13 @@ function Navbar() {
                     </li> */}
                     <li className={`${styles.list_item} ${getActive('/about')}`}>
                         {/* <Link to="/about" onClick={() => clickHandler()}>About</Link> */}
-                        <Link onClick={() => toast.warning(warningMessage)}>About</Link>
+                        <Link style={{ cursor: 'not-allowed' }} onClick={() => toast.warning(warningMessage)}>About</Link>
                     </li>
                     <li className={`${styles.list_item} ${getActive('/events')}`}>
-                        {/* <Link to="/events" onClick={() => clickHandler()}>Events</Link> */}
                         <Link to="/events" onClick={() => clickHandler()}>Events</Link>
                     </li>
-                    <li className={`${styles.list_item} ${getActive('/faq')}`}>
-                        {/* <Link to="/faq" onClick={() => clickHandler()}>FAQ</Link> */}
-                        <Link onClick={() => toast.warning(warningMessage)}>FAQ</Link>
+                    <li className={`${styles.list_item} ${getActive('/minileets')}`}>
+                        <Link to="/minileets" onClick={() => clickHandler()}>Minileets</Link>
                     </li>
                     <li className={styles.list_item}>
                         <a id={styles.discord} href="https://discord.gg/3CXVBXeeSr" target="_blank">

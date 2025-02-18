@@ -1,0 +1,95 @@
+/* || MINILEETS SECTION */
+#minileets_section {
+    padding-top: 6.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+#minileets_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: column nowrap;
+    height: 100%;
+    width: 100%;
+    padding-inline: calc(var(--inline_padding)*3);
+}
+
+/* || PUZZLE CONTAINER */
+#puzzle_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    gap: 3rem;
+    width: 30%;
+    height: 100%;
+}
+
+#header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    gap: .5rem;
+}
+
+#header h1 {
+    margin: 0;
+    color: var(--light);
+    text-align: center;
+    font-family: "Space Grotesk";
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.12rem;
+}
+
+#controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.875rem;
+    align-self: stretch;
+}
+
+#controls button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: scale .15s ease-in-out, filter .15s ease-in-out;
+}
+
+#controls button:hover {
+    scale: 1.15;
+    filter: brightness(2);
+}
+
+#controls #prev {
+    transform: scaleX(-1);
+}
+
+/* || PUZZLE CONTENT */
+#puzzle {
+    width: 100%;
+    height: 100%;
+    color: var(--light);
+
+}
+
+#puzzle * {
+    margin: 0;
+    font-family: "Geist Mono"!important;
+    color: #569CD6;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.85rem;
+    cursor: grab;
+    user-select: none;
+}

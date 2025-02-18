@@ -3,6 +3,7 @@ import Navbar from "@components/Navbar";
 // import Footer from "@components/Footer";
 import Home from "@pages/Home";
 import Events from "@pages/Events";
+import Minileets from "@pages/Minileets";
 // import About from "@pages/About";
 // import Contact from "@pages/Contact";
 import { Toaster } from 'sonner'
@@ -22,7 +23,9 @@ function App() {
         <Navbar/>
         <Routes>
           <Route path="/" element={<Home />} />
+          {/* <Route path="/about" element={<About />} /> */}
           <Route path="/events" element={<Events />} />
+          <Route path="/minileets" element={<Minileets />} />
           {/* <Route path="/contact" element={<Contact />} /> */}
         </Routes>
       </BrowserRouter>
