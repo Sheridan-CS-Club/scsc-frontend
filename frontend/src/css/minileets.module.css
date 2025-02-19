@@ -10,12 +10,19 @@
 
 #minileets_container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: start;
     height: 100%;
     width: 100%;
+    gap: 8rem;
     padding-inline: calc(var(--inline_padding)*3);
+}
+
+.confetti {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    right: 50%;
 }
 
 /* || PUZZLE CONTAINER */
@@ -24,26 +31,12 @@
     justify-content: center;
     align-items: center;
     flex-flow: column nowrap;
-    gap: 3rem;
-    width: 30%;
+    gap: 2rem;
     height: 100%;
+    margin-left: 5rem;
 }
 
-@media (max-width: 1200px) {
-    #puzzle_container {
-        width: 100%;
-    }
-}
 
-@media (max-width: 768px) {
-    #minileets_container {
-        padding-inline: var(--inline_padding);
-    }
-
-    #puzzle_container {
-        gap: 1.5rem;
-    }
-}
 
 #header {
     display: flex;
@@ -77,8 +70,12 @@
     background: none;
     border: none;
     padding: 0;
-    cursor: pointer;
+    cursor: not-allowed;
     transition: scale .15s ease-in-out, filter .15s ease-in-out;
+}
+
+#controls #hint {
+    cursor: pointer;
 }
 
 #controls button:hover {
@@ -106,6 +103,63 @@
     font-style: normal;
     font-weight: 500;
     line-height: 1.85rem;
-    cursor: grab;
     user-select: none;
+}
+
+/* || PUZZLE DESCRIPTION */
+#description {
+    margin-top: 4.25rem;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-flow: column nowrap;
+    width: 27.5%;
+    height: 100%;
+}
+
+#description span {
+    color: var(--light_75);
+    width: 100%;
+    text-wrap: wrap;
+    font-family: "Geist Mono";
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    transition: color .2s ease-in-out;
+}
+
+#description:hover span {
+    color: var(--light_75)!important;
+}
+
+@media (max-width: 1200px) {
+    #puzzle_container {
+        width: 100%;
+    }
+
+    #description {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) { 
+    #minileets_section {
+        padding-top: 4.5rem;
+    }
+
+    #minileets_container {
+        flex-flow: column nowrap;
+        padding-inline: var(--inline_padding);
+        gap: 0;
+    }
+
+    #puzzle_container {
+        margin: 0;
+        gap: 1.5rem;
+    }
+
+    #description {
+        width: 100%;
+    }
 }

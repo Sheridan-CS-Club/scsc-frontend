@@ -7,6 +7,7 @@ import share from "@assets/icons/minileets/share.svg";
 import next_arrow from "@assets/icons/minileets/next_arrow.svg";
 import minileets from "@data/mockMinileets.json";
 import { toast } from "sonner";
+import { useReward } from "react-rewards";
 
 const pythonControlFlow = [
     "if", "else", "elif", "for", "while", "return", "break", "continue", "pass"
@@ -73,30 +74,43 @@ const Minileets = () => {
     const [currentProblem, setCurrentProblem] = useState(0);
     const [codeLines, setCodeLines] = useState([]);
     const [hintIndex, setHintIndex] = useState(0);
+    const [solved, setSolved] = useState(false);
     const containerRef = useRef(null);
     const swapyInstance = useRef(null);
+    const { reward, isAnimating } = useReward("rewardConfetti", "confetti");
 
     // update code lines
     useEffect(() => {
         const lines = minileets[currentProblem].code.split("\n");
         setCodeLines(lines);
-        setHintIndex(0); // Reset hint index on problem change
+        setHintIndex(0);
     }, [currentProblem]);
 
-    // init swapy
+    // init swapy and check for wins
     useEffect(() => {
         if (containerRef.current) {
             swapyInstance.current?.destroy();
-            swapyInstance.current = createSwapy(containerRef.current);
-            swapyInstance.current.onSwap((event) => {
-                console.log("swap", event);
-            });
+            if (!solved) {
+                swapyInstance.current = createSwapy(containerRef.current);
+                
+                swapyInstance.current.onSwapEnd(() => {
+                    const currentOrder = Array.from(containerRef.current.querySelectorAll("[data-swapy-item]"))
+                        .map((el) => parseInt(el.getAttribute("data-swapy-item"), 10) + 1);
+    
+                    if (JSON.stringify(currentOrder) === JSON.stringify(minileets[currentProblem].solution)) {
+                        setSolved(true);
+                        toast.success("You solved the puzzle!");
+                        reward();
+                    }
+                });
+            }
         }
+    
         return () => {
             swapyInstance.current?.destroy();
         };
-    }, [codeLines]);
-
+    }, [codeLines, currentProblem, solved]);
+    
     const handleHint = () => {
         const hints = minileets[currentProblem]?.hint || [];
         if (hints.length === 0) return;
@@ -132,14 +146,28 @@ const Minileets = () => {
                             </button>
                         </div>
                     </div>
-                    <div ref={containerRef} id={styles.puzzle}>
+                    <div ref={containerRef} id={styles.puzzle} style={{ cursor: solved ? "default" : "grab" }}>
                         {codeLines.map((line, index) => (
                             <pre key={index} data-swapy-slot={index} className={styles.code_line}>
                                 <div data-swapy-item={index}>{highlightCodeLine(line)}</div>
                             </pre>
                         ))}
+                        <div className={styles.confetti} id="rewardConfetti" />
                     </div>
                 </div>
+                <pre id={styles.description}>
+                    {minileets[currentProblem]?.description.split("\n").map((line, index) => (
+                        <span
+                            key={index}
+                            style={{
+                                fontWeight: index === 0 ? "bold" : "normal",
+                                color: index >= 2 ? "var(--light_15)" : "var(--light_60)"
+                            }}
+                        >
+                            {line}{"\n"}
+                        </span>
+                    ))}
+                </pre>
             </div>
         </section>
     );
