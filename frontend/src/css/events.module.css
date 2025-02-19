@@ -17,6 +17,12 @@
     padding-inline: calc(var(--inline_padding)*3);
 }
 
+@media (max-width: 1200px) {
+    #events_container {
+        padding-inline: var(--inline_padding);
+    }
+}
+
 #events_categories {
     display: inline-flex;
     flex-wrap: wrap;
