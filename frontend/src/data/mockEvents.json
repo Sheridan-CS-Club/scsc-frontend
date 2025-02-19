@@ -1,5 +1,12 @@
 [
     {
+        "name": "BearHacks 🏆",
+        "date": "2025-03-21",
+        "location": "Trafalgar & Virtual",
+        "category": "Hacks",
+        "description": "Join us for our first ever Hackathon."
+    },
+    {
         "name": "Leetcode Jam II",
         "date": "2025-02-21",
         "location": "Trafalgar",
@@ -21,7 +28,7 @@
         "description": "Bi-weekly collaborative LeetCode practice session."
     },
     {
-        "name": "Hackville",
+        "name": "Hackville 🏆",
         "date": "2025-01-19",
         "location": "HMC",
         "category": "Hacks",
