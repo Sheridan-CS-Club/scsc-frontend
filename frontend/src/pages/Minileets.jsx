@@ -28,6 +28,10 @@ const pythonVariables = [
 ];
 
 const getSyntaxColor = (token) => {
+    // function highlight
+    if (token === "invertTree")
+        return "#DCDCAA";
+
     // orange brackets
     if (["{", "}", "[", "]", "(", ")"].includes(token))
         return "#FFD710";

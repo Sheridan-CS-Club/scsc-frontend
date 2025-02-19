@@ -106,6 +106,10 @@
     user-select: none;
 }
 
+.code_line:hover div {
+    background: var(--light_5);
+}
+
 /* || PUZZLE DESCRIPTION */
 #description {
     margin-top: 4.25rem;
