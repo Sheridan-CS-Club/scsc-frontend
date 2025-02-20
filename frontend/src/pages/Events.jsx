@@ -3,6 +3,9 @@ import styles from "@css/events.module.css";
 import events from "@data/mockEvents.json";
 
 const eventCategories = ["All", "Social", "Hacks", "Workshops", "Talks"];
+const handleSectionClick = () => {
+    window.open("https://discord.com/channels/1249826862738313297/1249826863426175088", "_blank");
+};
 
 const Events = () => {
     const [activeCategory, setActiveCategory] = useState(eventCategories[0]);
@@ -45,7 +48,7 @@ const Events = () => {
                                 <h2>{year}</h2>
                                 <ul className={styles.events_list}>
                                     {eventsByYear[year].map(event => (
-                                        <li key={event.id} tabIndex="0" className={styles.event}>
+                                        <li key={event.id} tabIndex="0" className={styles.event} onClick={handleSectionClick}>
                                             <span>{event.name}</span>
                                             <span>{new Date(event.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' })} · {event.location}</span>
                                         </li>
