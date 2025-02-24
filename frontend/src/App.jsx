@@ -7,6 +7,7 @@ import Minileets from "@pages/Minileets";
 // import About from "@pages/About";
 // import Contact from "@pages/Contact";
 import { Toaster } from 'sonner'
+import { Analytics } from "@vercel/analytics/react"
 import './index.css'
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           {/* <Route path="/contact" element={<Contact />} /> */}
         </Routes>
       </BrowserRouter>
+      <Analytics/>
     </>
   );
 }
