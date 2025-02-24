@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "@css/events.module.css";
-import events from "@data/mockEvents.json";
+import { GetEvents } from "api/events";
 
 const eventCategories = ["All", "Social", "Hacks", "Workshops", "Talks"];
 const handleSectionClick = () => {
@@ -9,6 +9,22 @@ const handleSectionClick = () => {
 
 const Events = () => {
     const [activeCategory, setActiveCategory] = useState(eventCategories[0]);
+
+    const [eventsLoaded, setEventsLoaded] = useState(false)
+    const [events, setEvents] = useState([])
+
+    useEffect(() => {
+        async function handleLoad(){
+            if (!eventsLoaded){
+                let events = await GetEvents();
+                setEvents(events)
+                setEventsLoaded(true)
+            }
+        }
+
+        handleLoad()
+
+    }, [eventsLoaded])
 
     const handleCategoryClick = (category) => {
         setActiveCategory(category);
