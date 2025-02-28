@@ -1,23 +1,40 @@
 import styles from "@css/components/terminal.module.css";
 import React, { useEffect, useState, useRef } from "react";
+import * as cmds from "./terminal_cmds";
 
 const Terminal = () => {
     const [currentCommand, setCurrentCommand] = useState("");
     const [commandHistory, setCommandHistory] = useState([]);
+    const [displayedHistory, setDisplayedHistory] = useState([])
     const [isTyping, setIsTyping] = useState(false);
     const inputRef = useRef(null);
 
+    // "cmd": [cmd_function, arg_count]
+    const commands = {
+        "help": [cmds.cmd_help, 0],
+        "echo": [cmds.cmd_echo, 1],
+        "quit": [cmds.cmd_quit, 0],
+        "date": [cmds.cmd_date, 0],
+        "time": [cmds.cmd_time, 0], 
+        "clear": [() => {
+            setDisplayedHistory([])
+        }, 0],
+    }
+
     const handleInputChange = (e) => {
         setCurrentCommand(e.target.value);
-    };
+    }; 
 
     const handleCommandExecute = () => {
         if (currentCommand.trim() === "") return;
 
         const userInput = `$ ${currentCommand}`;
-        const commandOutput = executeCommand(currentCommand) ?? ""; 
+        setDisplayedHistory((prevHistory) => [...prevHistory, userInput]);
+        setCommandHistory((prevHistory) => [...prevHistory, currentCommand]);
 
-        setCommandHistory((prevHistory) => [...prevHistory, userInput]);
+        const commandOutput = executeCommand(currentCommand) ?? null; 
+        console.log(commandOutput);
+
         setCurrentCommand("");
 
         if (commandOutput) {
@@ -25,46 +42,36 @@ const Terminal = () => {
         }
     };
 
-    const executeCommand = (command) => {
-        const parts = command.split(" ");
-        const cmd = parts[0];
-        const args = parts.slice(1).join(" ");
+    const executeCommand = (input) => {
+        const argv = input.split(" ");
+        const command = argv[0];
+        const arg_string = argv.slice(1).join(" ");
 
-        switch (cmd) {
-            case "help":
-                return `
-Available commands:
-    echo [text]   - Prints the text to the terminal.
-    quit          - Closes the terminal.
-    date          - Displays the current date.
-    time          - Displays the current time.
-    clear         - Clears the terminal screen.
-    help          - Displays this help message.
-    `;
-            case "echo":
-                return args || "";
-            case "quit":
-                return "Terminal will close now, ong ong (press escape).";
-            case "date":
-                return new Date().toLocaleDateString();
-            case "time":
-                return new Date().toLocaleTimeString();
-            case "clear":
-                setCommandHistory([]);
-                return "";
-            default:
-                return `Command '${cmd}' not found.`; 
+        if (!Object.keys(commands).includes(command)){
+            return `Command "${command}" not found.`;
         }
+
+        const [method, parameter_count] = commands[command];
+
+        const regex = /"([^"]*)"|\S+/g;
+        const args = [...arg_string.matchAll(regex).map(m => m[1] || m[0])]
+        console.log(args)
+        const argument_count = args.length;
+        if (argument_count != parameter_count){
+            return `Incorrect number of arguments provided. Expected ${parameter_count} but received ${argument_count} `
+        }
+
+        return method(...args);
     };
 
     const animateLatestCommand = (text) => {
         let index = 0;
         setIsTyping(true);
 
-        setCommandHistory((prevHistory) => [...prevHistory, ""]);
+        setDisplayedHistory((prevHistory) => [...prevHistory, ""]);
 
         const interval = setInterval(() => {
-            setCommandHistory((prevHistory) => {
+            setDisplayedHistory((prevHistory) => {
                 const updatedHistory = [...prevHistory];
                 updatedHistory[updatedHistory.length - 1] = text.slice(0, index + 1);
                 return updatedHistory;
@@ -96,7 +103,7 @@ Available commands:
                     <div className={styles.terminalTitle}>SCSC Commodore v0.1.0</div>
                 </div>
                 <div className={styles.terminalBody}>
-                    <pre>{commandHistory.join("\n")}</pre>
+                    <pre>{displayedHistory.join("\n")}</pre>
                     {!isTyping && (
                         <div className={styles.terminalInputLine}>
                             $ <input
