@@ -1,8 +1,32 @@
-# React + Vite
+# Sheridan CS Club Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern web app built with React and Vite.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Frontend Framework**: React 18
+- **Build Tool**: Vite 6
+- **Routing**: React Router DOM 6
+- **3D Graphics**: Three.js (via React Three Fiber)
+- **Animation**: Framer Motion
+- **UI Components**: 
+  - Sonner for toast notifications
+  - React Rewards for confetti animations
+- **Analytics**: Vercel Analytics
+- **Development Tools**:
+  - ESLint for code linting
+  - TypeScript support
+  - Fast Refresh for development
+
+## Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+```
