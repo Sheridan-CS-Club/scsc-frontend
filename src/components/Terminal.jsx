@@ -1,128 +1,95 @@
 import styles from "@css/components/terminal.module.css";
 import React, { useEffect, useState, useRef } from "react";
 import * as cmds from "./terminal_cmds";
+import { runCommand } from "@api/cs-club-console/console";
 
 const Terminal = () => {
-    const [currentCommand, setCurrentCommand] = useState("");
-    const [commandHistory, setCommandHistory] = useState([]);
-    const [displayedHistory, setDisplayedHistory] = useState([])
-    const [isTyping, setIsTyping] = useState(false);
-    const inputRef = useRef(null);
+  const [currentCommand, setCurrentCommand] = useState("");
+  const [commandHistory, setCommandHistory] = useState([]);
+  const [displayedHistory, setDisplayedHistory] = useState([]);
 
-    // "cmd": [cmd_function, arg_count]
-    const commands = {
-        "help": [cmds.cmd_help, 0],
-        "echo": [cmds.cmd_echo, 1],
-        "quit": [cmds.cmd_quit, 0],
-        "date": [cmds.cmd_date, 0],
-        "time": [cmds.cmd_time, 0], 
-        "clear": [() => {
-            setDisplayedHistory([])
-        }, 0],
+  const inputRef = useRef(null);
+  const scrollRef = useRef(null);
+
+  const handleInputChange = (e) => {
+    setCurrentCommand(e.target.value);
+  };
+
+  const handleCommandExecute = () => {
+    setCurrentCommand(currentCommand.trim());
+    if (currentCommand.trim() === "") return;
+
+    const userInput = `$ ${currentCommand}`;
+    setDisplayedHistory((prevHistory) => [...prevHistory, userInput]);
+    setCommandHistory((prevHistory) => [...prevHistory, currentCommand]);
+
+    if (currentCommand == "clear") {
+      setCurrentCommand("");
+      setDisplayedHistory([]);
+      return;
     }
 
-    const handleInputChange = (e) => {
-        setCurrentCommand(e.target.value);
-    }; 
+    let output;
 
-    const handleCommandExecute = () => {
-        if (currentCommand.trim() === "") return;
+    try {
+      output = runCommand(currentCommand).map((s) => ({
+        content: s,
+        is_err: false,
+      }));
+    } catch (e) {
+      output = [{ content: e.message ?? String(e), is_err: true }];
+    }
 
-        const userInput = `$ ${currentCommand}`;
-        setDisplayedHistory((prevHistory) => [...prevHistory, userInput]);
-        setCommandHistory((prevHistory) => [...prevHistory, currentCommand]);
+    output.forEach(({ content, is_err }) => displayMessage(content, is_err));
+    setCurrentCommand("");
+  };
 
-        const commandOutput = executeCommand(currentCommand) ?? null; 
-        console.log(commandOutput);
+  const displayMessage = (msg, is_err) => {
+    setDisplayedHistory((prev) => [...prev, { content: msg, err: is_err }]);
+  };
 
-        setCurrentCommand("");
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [displayedHistory]);
 
-        if (commandOutput) {
-            animateLatestCommand(commandOutput);
-        }
-    };
+  return (
+    <div id={styles.terminal}>
+      <div id={styles.terminalHeader}>
+        <div className={styles.terminalTitle}>SCSC Commodore v0.1.0</div>
+      </div>
 
-    const executeCommand = (input) => {
-        const argv = input.split(" ");
-        const command = argv[0];
-        const arg_string = argv.slice(1).join(" ");
+      <div id={styles.terminalScrollBody} ref={scrollRef}>
+        <pre>
+          {displayedHistory.map((entry, i) =>
+            typeof entry === "string" ? (
+              <div key={i}>{entry}</div>
+            ) : (
+              <div key={i} className={entry.err ? styles.errText : ""}>
+                {entry.content}
+              </div>
+            )
+          )}
+        </pre>
 
-        if (!Object.keys(commands).includes(command)){
-            return `Command "${command}" not found.`;
-        }
-
-        const [method, parameter_count] = commands[command];
-
-        const regex = /"([^"]*)"|\S+/g;
-        const args = [...arg_string.matchAll(regex).map(m => m[1] || m[0])]
-        console.log(args)
-        const argument_count = args.length;
-        if (argument_count != parameter_count){
-            return `Incorrect number of arguments provided. Expected ${parameter_count} but received ${argument_count} `
-        }
-
-        return method(...args);
-    };
-
-    const animateLatestCommand = (text) => {
-        let index = 0;
-        setIsTyping(true);
-
-        setDisplayedHistory((prevHistory) => [...prevHistory, ""]);
-
-        const interval = setInterval(() => {
-            setDisplayedHistory((prevHistory) => {
-                const updatedHistory = [...prevHistory];
-                updatedHistory[updatedHistory.length - 1] = text.slice(0, index + 1);
-                return updatedHistory;
-            });
-
-            index++;
-            if (index >= text.length) {
-                clearInterval(interval);
-                setIsTyping(false);
-            }
-        }, 10);
-    };
-
-    useEffect(() => {
-        if (inputRef.current) {
-            inputRef.current.focus();
-        }
-    }, [isTyping]);
-
-    return (
-        <div id={styles.terminal}>
-            <div className={styles.terminalWindow}>
-                <div className={styles.terminalHeader}>
-                    <div className={styles.terminalButtons}>
-                        <span className={styles.redButton}></span>
-                        <span className={styles.yellowButton}></span>
-                        <span className={styles.greenButton}></span>
-                    </div>
-                    <div className={styles.terminalTitle}>SCSC Commodore v0.1.0</div>
-                </div>
-                <div className={styles.terminalBody}>
-                    <pre>{displayedHistory.join("\n")}</pre>
-                    {!isTyping && (
-                        <div className={styles.terminalInputLine}>
-                            $ <input
-                                type="text"
-                                value={currentCommand}
-                                onChange={handleInputChange}
-                                onKeyDown={(e) => {
-                                    if (e.key === "Enter") {
-                                        handleCommandExecute();
-                                    }
-                                }}
-                                ref={inputRef}
-                            />
-                        </div>
-                    )}
-                </div>
-            </div>
+        <div className={styles.terminalInputLine}>
+          ${" "}
+          <input
+            type="text"
+            value={currentCommand}
+            onChange={handleInputChange}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleCommandExecute();
+              }
+            }}
+            ref={inputRef}
+          />
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Terminal;
