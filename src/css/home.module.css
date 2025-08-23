@@ -157,7 +157,8 @@
     gap: 2rem;
 }
 
-#about_content p {
+#about_content p,
+#welcome_header p {
     margin: 0;
     max-width: 65rem;
     color: #9D9D9D;
@@ -166,6 +167,10 @@
     font-style: normal;
     font-weight: 400;
     line-height: 2rem;
+}
+
+#welcome_header p {
+    text-align: center;
 }
 
 #about_content #quote_author {
@@ -245,6 +250,91 @@
     }
 }
 
+/* || EVENTS SECTION */
+#events_section {
+    margin-top: 5.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: var(--block_padding) var(--inline_padding);
+}
+
+#events_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column nowrap;
+    gap: 2.5rem;
+    width: clamp(var(--min_width), 100%, var(--max_width));
+    height: 100%;
+}
+
+#events_container h1 {
+    margin: 0;
+    color: var(--light);
+    text-align: center;
+    font-family: "Space Grotesk";
+    font-size: 2.5rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.04rem;
+}
+
+#events_content {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    width: 100%;
+    height: 100%;
+
+}
+
+#events_iframe_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+#events_iframe_container iframe {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    #events_section {
+        margin-top: 4rem;
+        padding: var(--block_padding) calc(var(--inline_padding) / 2);
+    }
+
+    #events_container {
+        gap: 2rem;
+    }
+
+    #events_container h1 {
+        font-size: 2.25rem;
+    }
+
+    #events_iframe_container iframe {
+        height: 400px;
+    }
+}
+
+@media (max-width: 480px) {
+    #events_container h1 {
+        font-size: 1.875rem;
+    }
+
+    #events_iframe_container iframe {
+        height: 350px;
+    }
+}
+
 /* || WELCOME SECTION */
 #welcome_section {
     margin-top: 5.5rem;
@@ -252,7 +342,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 21.5rem;
+    height: 22.5rem;
     background: url('../assets/images/home/welcome_bg.svg') repeat center center;
     background-size: cover;
 }
@@ -262,7 +352,7 @@
     justify-content: center;
     align-items: center;
     flex-flow: column nowrap;
-    gap: 1.75rem;
+    gap: 3.75rem;
     width: clamp(var(--min_width), 100%, var(--max_width));
     height: 100%;
 }
@@ -277,6 +367,7 @@
     font-weight: 700;
     line-height: normal;
     letter-spacing: -0.06rem;
+    padding-inline: 2rem;
 }
 
 .rounded_button {
@@ -294,6 +385,28 @@
 
 .rounded_button:hover {
     background: var(--dark_5);
+}
+
+#luma_button {
+    opacity: .85;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+#luma_button h5 {
+    margin: 0;
+    color: var(--light);
+    font-size: 1.25rem;
+    font-weight: 500;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.02rem;
+}
+
+#luma_button img {
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
 #welcome_button h5 {
@@ -318,31 +431,19 @@
     letter-spacing: -0.015rem;
 }
 
-#welcome_button img {
+#welcome_button img,
+#luma_button img {
     transition: scale .2s;;
 }
 
-#welcome_button:hover img {
-    animation: shake 0.5s;
+#welcome_button:hover img,
+#luma_button:hover img {
     scale: 1.1;
-}
-
-@keyframes shake {
-    0% { transform: translate(1px, 1px) rotate(0deg); }
-    10% { transform: translate(-1px, -2px) rotate(-1deg); }
-    20% { transform: translate(-3px, 0px) rotate(1deg); }
-    30% { transform: translate(3px, 2px) rotate(0deg); }
-    40% { transform: translate(1px, -1px) rotate(1deg); }
-    50% { transform: translate(-1px, 2px) rotate(-1deg); }
-    60% { transform: translate(-3px, 1px) rotate(0deg); }
-    70% { transform: translate(3px, 1px) rotate(-1deg); }
-    80% { transform: translate(-1px, -1px) rotate(1deg); }
-    90% { transform: translate(1px, 2px) rotate(0deg); }
-    100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
 @media (max-width: 768px) {
     #welcome_container h1 {
         font-size: 2.25rem;
     }
+    
 }

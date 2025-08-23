@@ -1,7 +1,7 @@
 import styles from "@css/components/terminal.module.css";
 import React, { useEffect, useState, useRef } from "react";
 import * as cmds from "./terminal_cmds";
-import { runCommand } from "@api/cs-club-console/console";
+import { runCommand } from "@api/scsc-console/console";
 
 const Terminal = () => {
   const [currentCommand, setCurrentCommand] = useState("");
@@ -53,6 +53,13 @@ const Terminal = () => {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [displayedHistory]);
+
+  useEffect(() => {
+    // Focus the input when the terminal component mounts
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   return (
     <div id={styles.terminal}>

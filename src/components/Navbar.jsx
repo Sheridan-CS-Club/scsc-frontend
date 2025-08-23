@@ -7,7 +7,7 @@ import { toast } from 'sonner'
 import { useEffect } from "react";
 
 
-const warningMessage = "Sorry! This part of the website is still under development. Join the discord for more information instead (꩜﹏꩜)";
+const warningMessage = "Sorry! This part of the website is still under development (꩜﹏꩜)";
 
 function Navbar() {
     const location = useLocation();
@@ -57,8 +57,11 @@ function Navbar() {
                         {/* <Link to="/about" onClick={() => clickHandler()}>About</Link> */}
                         <Link style={{ cursor: 'not-allowed' }} onClick={() => toast.warning(warningMessage)}>About</Link>
                     </li>
-                    <li className={`${styles.list_item} ${getActive('/events')}`}>
+                    {/* <li className={`${styles.list_item} ${getActive('/events')}`}>
                         <Link to="/events" onClick={() => clickHandler()}>Events</Link>
+                    </li> */}
+                    <li className={`${styles.list_item} ${getActive('/events')}`}>
+                        <Link style={{ cursor: 'not-allowed' }} onClick={() => toast.warning(warningMessage)}>Events</Link>
                     </li>
                     <li className={`${styles.list_item} ${getActive('/minileets')}`}>
                         <Link to="/minileets" onClick={() => clickHandler()}>Minileets</Link>
