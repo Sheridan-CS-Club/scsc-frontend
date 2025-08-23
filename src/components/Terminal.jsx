@@ -1,7 +1,32 @@
 import styles from "@css/components/terminal.module.css";
 import React, { useEffect, useState, useRef } from "react";
 import * as cmds from "./terminal_cmds";
-import { runCommand } from "@api/scsc-console/console";
+
+// Fallback console implementation
+const fallbackRunCommand = (cmd) => {
+  const commands = {
+    help: () => ["Available commands: help, clear, about, contact"],
+    about: () => ["SCSC Terminal v0.1.0", "Sheridan Computer Science Club"],
+    contact: () => ["Discord: https://discord.gg/3CXVBXeeSr", "Email: sheridancsclub@gmail.com"],
+    clear: () => []
+  };
+  
+  const command = cmd.toLowerCase().trim();
+  if (commands[command]) {
+    return commands[command]();
+  }
+  return [`Command '${cmd}' not found. Type 'help' for available commands.`];
+};
+
+const getRunCommand = async () => {
+  try {
+    const consoleModule = await import("@api/scsc-console/console");
+    return consoleModule.runCommand;
+  } catch (error) {
+    console.warn("Console API not available, using fallback implementation");
+    return fallbackRunCommand;
+  }
+};
 
 const Terminal = () => {
   const [currentCommand, setCurrentCommand] = useState("");
@@ -15,7 +40,7 @@ const Terminal = () => {
     setCurrentCommand(e.target.value);
   };
 
-  const handleCommandExecute = () => {
+  const handleCommandExecute = async () => {
     setCurrentCommand(currentCommand.trim());
     if (currentCommand.trim() === "") return;
 
@@ -32,6 +57,7 @@ const Terminal = () => {
     let output;
 
     try {
+      const runCommand = await getRunCommand();
       output = runCommand(currentCommand).map((s) => ({
         content: s,
         is_err: false,
