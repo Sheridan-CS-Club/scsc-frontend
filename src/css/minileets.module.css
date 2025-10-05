@@ -92,7 +92,48 @@
     width: 100%;
     height: 100%;
     color: var(--light);
+}
 
+/* || SUBMIT BUTTON */
+.submit_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.submit_button {
+    background: var(--primary);
+    border: none;
+    color: var(--dark);
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-family: "Space Grotesk";
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.2s ease-in-out;
+    min-width: 150px;
+}
+
+.submit_button:hover:not(:disabled) {
+    background: var(--primary_light);
+    transform: translateY(-2px);
+}
+
+.submit_button:disabled {
+    background: var(--light_20);
+    color: var(--light_60);
+    cursor: not-allowed;
+    transform: none;
+}
+
+.tries_display {
+    color: var(--light_75);
+    font-family: "Geist Mono";
+    font-size: 0.9rem;
+    text-align: center;
 }
 
 #puzzle * {
@@ -147,6 +188,232 @@
     }
 }
 
+/* || GAME MODE SELECTOR */
+#game_mode_selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.mode_button, .leaderboard_button {
+    background: var(--dark_20);
+    border: 2px solid var(--light_20);
+    color: var(--light_75);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-family: "Space Grotesk";
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.mode_button:hover, .leaderboard_button:hover {
+    background: var(--light_10);
+    border-color: var(--light_40);
+    color: var(--light);
+}
+
+.mode_button.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--dark);
+}
+
+/* || GAME STATS */
+#game_stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: var(--dark_10);
+    border-radius: 0.5rem;
+    border: 1px solid var(--light_20);
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.stat span {
+    color: var(--light);
+    font-family: "Space Grotesk";
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.end_game_button {
+    background: var(--danger);
+    border: none;
+    color: var(--light);
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-family: "Space Grotesk";
+    font-weight: 600;
+    transition: background 0.2s ease-in-out;
+}
+
+.end_game_button:hover {
+    background: var(--danger_dark);
+}
+
+/* || MODALS */
+#modal_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#modal {
+    background: var(--dark);
+    border: 2px solid var(--light_20);
+    border-radius: 1rem;
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+#modal h2 {
+    color: var(--light);
+    font-family: "Space Grotesk";
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+#modal p {
+    color: var(--light_75);
+    font-family: "Geist Mono";
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+#modal input {
+    width: 100%;
+    padding: 0.75rem;
+    margin: 1rem 0;
+    background: var(--dark_20);
+    border: 2px solid var(--light_20);
+    border-radius: 0.5rem;
+    color: var(--light);
+    font-family: "Geist Mono";
+    font-size: 1rem;
+}
+
+#modal input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.modal_buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.modal_buttons button {
+    background: var(--primary);
+    border: none;
+    color: var(--dark);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-family: "Space Grotesk";
+    font-weight: 600;
+    transition: background 0.2s ease-in-out;
+}
+
+.modal_buttons button:hover {
+    background: var(--primary_light);
+}
+
+.modal_buttons button:last-child {
+    background: var(--light_20);
+    color: var(--light_75);
+}
+
+.modal_buttons button:last-child:hover {
+    background: var(--light_30);
+}
+
+/* || LEADERBOARD */
+.leaderboard {
+    margin: 1rem 0;
+}
+
+.leaderboard_entry {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto auto;
+    gap: 1rem;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    background: var(--dark_10);
+    border-radius: 0.5rem;
+    align-items: center;
+}
+
+.leaderboard_entry:first-child {
+    background: var(--primary_dark);
+}
+
+.leaderboard_entry:nth-child(2) {
+    background: var(--light_10);
+}
+
+.leaderboard_entry:nth-child(3) {
+    background: var(--warning_dark);
+}
+
+.rank {
+    color: var(--light);
+    font-family: "Space Grotesk";
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.name {
+    color: var(--light);
+    font-family: "Space Grotesk";
+    font-weight: 600;
+    text-align: left;
+}
+
+.score {
+    color: var(--primary);
+    font-family: "Geist Mono";
+    font-weight: 600;
+}
+
+.problems {
+    color: var(--light_75);
+    font-family: "Geist Mono";
+    font-size: 0.9rem;
+}
+
+.time {
+    color: var(--light_60);
+    font-family: "Geist Mono";
+    font-size: 0.9rem;
+}
+
 @media (max-width: 768px) { 
     #minileets_section {
         padding-top: 4.5rem;
@@ -165,5 +432,33 @@
 
     #description {
         width: 100%;
+    }
+
+    #game_mode_selector {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .mode_button, .leaderboard_button {
+        width: 100%;
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    #game_stats {
+        flex-wrap: wrap;
+        gap: 1rem;
+        padding: 0.75rem;
+    }
+
+    .leaderboard_entry {
+        grid-template-columns: auto 1fr;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .score, .problems, .time {
+        grid-column: 2;
+        text-align: right;
     }
 }
