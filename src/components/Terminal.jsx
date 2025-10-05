@@ -19,13 +19,9 @@ const fallbackRunCommand = (cmd) => {
 };
 
 const getRunCommand = async () => {
-  try {
-    const consoleModule = await import("@api/scsc-console/console");
-    return consoleModule.runCommand;
-  } catch (error) {
-    console.warn("Console API not available, using fallback implementation");
-    return fallbackRunCommand;
-  }
+  // Always use fallback for now since the console API is not available
+  console.warn("Console API not available, using fallback implementation");
+  return fallbackRunCommand;
 };
 
 const Terminal = () => {
